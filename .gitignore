@@ -1,0 +1,7 @@
+stubflip.db
+*.db
+*.log
+site/
+__pycache__/
+shot_*.png
+.env

@@ -1,0 +1,119 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=theme-color content="#13274F"><link rel=manifest href="manifest.json"><link rel=apple-touch-icon href="icon.svg"><meta name=apple-mobile-web-app-capable content=yes><title>STUBFLIP ARCADE</title>
+<link rel=preconnect href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=UnifrakturMaguntia&family=Pacifico&display=swap" rel=stylesheet>
+<style>
+:root{--px:'Press Start 2P','Courier New',monospace;--mono:'VT323','Consolas',monospace}
+body[data-theme=braves]{--bg:#0a1530;--panel:#13274F;--acc:#CE1141;--acc2:#ffffff;--glow:#ff3b6b;--script:'Pacifico',cursive}
+body[data-theme=tigers]{--bg:#06122a;--panel:#0C2340;--acc:#FA4616;--acc2:#ffffff;--glow:#ff7a45;--script:'UnifrakturMaguntia',serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at center,var(--panel) 0%,var(--bg) 75%);color:#eef;font-family:var(--mono);font-size:20px;min-height:100vh}
+body:after{content:"";pointer-events:none;position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 1px,transparent 1px 3px);z-index:9;animation:flick 6s infinite}
+@keyframes flick{0%,97%,100%{opacity:1}98%{opacity:.85}}
+.wrap{max-width:1300px;margin:auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border:4px solid var(--acc);box-shadow:0 0 18px var(--glow),inset 0 0 18px rgba(0,0,0,.6);background:#000a;padding:18px 22px;border-radius:6px}
+h1{font-family:var(--px);font-size:30px;margin:0;color:var(--acc2);text-shadow:0 0 6px var(--glow),3px 3px 0 var(--acc)}
+.mark{font-family:var(--script);font-size:56px;color:var(--acc);text-shadow:0 0 12px var(--glow);line-height:1;margin-right:10px}
+.sub{font-family:var(--px);font-size:10px;color:var(--acc);letter-spacing:2px;margin-top:8px}
+.btn{font-family:var(--px);font-size:11px;padding:12px 14px;background:var(--acc);color:#fff;border:3px solid #fff;cursor:pointer;box-shadow:4px 4px 0 #000;text-transform:uppercase}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #000}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0}
+.led{background:#000;border:3px solid var(--panel);outline:2px solid var(--acc);padding:12px;text-align:center}
+.led b{display:block;font-family:var(--px);font-size:18px;color:#ffd84a;text-shadow:0 0 8px #ffb000;margin-top:8px}.led span{font-family:var(--px);font-size:9px;color:#9ab}
+.ticker{overflow:hidden;white-space:nowrap;background:#000;border-top:3px solid var(--acc);border-bottom:3px solid var(--acc);padding:8px 0;font-family:var(--px);font-size:12px;color:#7dff8a;text-shadow:0 0 6px #2f2}
+.ticker div{display:inline-block;padding-left:100%;animation:tick 60s linear infinite}@keyframes tick{to{transform:translateX(-100%)}}
+.note{background:#0008;border-left:6px solid var(--acc);padding:12px 16px;margin:16px 0;font-size:19px;line-height:1.3}
+h2{font-family:var(--px);font-size:16px;color:var(--acc2);text-shadow:0 0 8px var(--glow);margin:28px 0 10px}h2:before{content:"▶ ";color:var(--acc)}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}.ctrl input,.ctrl select{font-family:var(--mono);font-size:20px;background:#000;color:#fff;border:2px solid var(--acc);padding:4px 8px}
+.hdr,.row{display:grid;gap:8px;align-items:center;padding:8px 12px}
+.hdr{font-family:var(--px);font-size:9px;color:var(--acc);}.hdr div{cursor:pointer;user-select:none}.hdr div:hover{color:#fff}
+.row{background:linear-gradient(90deg,#000c,var(--panel));border:2px solid #fff2;border-left:6px solid var(--acc);margin-bottom:6px;border-radius:4px;transition:.15s}
+.row:hover{transform:translateX(4px);border-color:var(--acc);box-shadow:0 0 12px var(--glow)}
+#flips .hdr,#flips .row{grid-template-columns:2.2fr 1.2fr .6fr 1.6fr 1fr 1fr 1.1fr .8fr .8fr 1fr}
+#inv .hdr,#inv .row{grid-template-columns:1.8fr .8fr .5fr 1.1fr .5fr .8fr .8fr .8fr .6fr 1.6fr 2.6fr}
+.nm{font-weight:bold;color:#fff;font-size:22px}.pr{font-family:var(--px);font-size:12px;color:#5f5;text-shadow:0 0 6px #0f0}
+.roi{font-family:var(--px);font-size:10px;padding:4px 6px;border-radius:3px;text-align:center}.hi{background:#0a4;color:#fff}.md{background:#ca0;color:#000}.lo{background:#555;color:#fff}
+.tag{font-family:var(--px);font-size:8px;padding:3px 5px;border:1px solid}.r-RedDiamond{color:#ff4b4b}.r-Diamond{color:#6cf}.r-Gold{color:#fd3}.r-Silver{color:#ccc}.why{font-size:17px;color:#cde}
+.up{color:#5f5}.dn{color:#f55}footer{font-size:16px;color:#89a;margin:24px 0}
+@media(max-width:900px){.hdr{display:none}#flips .row,#inv .row{grid-template-columns:1fr 1fr}}
+
+.live{display:inline-flex;align-items:center;gap:8px;font-family:var(--px);font-size:11px;color:#f44}.live i{width:12px;height:12px;border-radius:50%;background:#f22;box-shadow:0 0 10px #f22;animation:pulse 1s infinite}.live.off{color:#888}.live.off i{background:#666;box-shadow:none;animation:none}
+@keyframes pulse{50%{opacity:.25;transform:scale(.7)}}
+.fup{animation:fup 1.6s}.fdn{animation:fdn 1.6s}@keyframes fup{0%{background:#0f04;color:#5f5;text-shadow:0 0 10px #0f0}}@keyframes fdn{0%{background:#f004;color:#f55;text-shadow:0 0 10px #f00}}
+.mvp{position:relative;overflow:hidden;border:5px solid var(--acc);background:linear-gradient(135deg,#000d,var(--panel));padding:22px 26px;margin:16px 0;box-shadow:0 0 30px var(--glow);border-radius:8px}
+.mvp .badge{font-family:var(--px);font-size:13px;color:#000;background:#ffd84a;padding:6px 10px;display:inline-block;box-shadow:3px 3px 0 #000}
+.mvp .big{font-family:var(--px);font-size:28px;color:#fff;text-shadow:0 0 10px var(--glow),3px 3px 0 var(--acc);margin:14px 0 6px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}.st{background:#000a;border:2px solid #fff3;padding:8px;text-align:center}.st span{font-family:var(--px);font-size:8px;color:#9ab;display:block}.st b{font-family:var(--px);font-size:15px;color:#ffd84a;display:block;margin-top:6px}.st b.pr{color:#5f5}
+.banner{position:absolute;right:20px;top:14px;font-family:var(--px);font-size:34px;color:var(--acc);text-shadow:0 0 14px var(--glow),3px 3px 0 #fff;transform:rotate(-8deg);animation:boom 1.4s infinite}
+@keyframes boom{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(-4deg) scale(1.15)}}
+body[data-theme=braves] .fx{position:absolute;right:200px;top:6px;font-size:46px;animation:chop 0.7s infinite alternate;transform-origin:bottom right;color:var(--acc)}
+@keyframes chop{from{transform:rotate(-35deg)}to{transform:rotate(25deg)}}
+body[data-theme=braves] .mvp:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 40px,rgba(206,17,65,.12) 40px 60px);animation:slide 3s linear infinite}
+@keyframes slide{to{background-position:85px 0}}
+body[data-theme=tigers] .fx{position:absolute;right:190px;top:0;width:110px;height:110px}
+body[data-theme=tigers] .fx:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 16px,var(--acc) 16px 22px,transparent 22px 34px);clip-path:polygon(10% 0,90% 0,70% 100%,0 100%);filter:drop-shadow(0 0 8px var(--glow));animation:claw 1.8s infinite}
+@keyframes claw{0%{clip-path:polygon(0 0,0 0,0 0,0 0)}40%,100%{clip-path:polygon(10% 0,90% 0,70% 100%,0 100%)}}
+body[data-theme=tigers] .mvp:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 30%,rgba(250,70,22,.25),transparent 60%);animation:roar 2s infinite}
+@keyframes roar{50%{opacity:.3}}
+.mvp>*:not(.banner):not(.fx){position:relative}.mvp .banner,.mvp .fx{position:absolute;z-index:2}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.mini{background:linear-gradient(160deg,#000c,var(--panel));border:3px solid var(--acc);border-radius:6px;padding:12px;box-shadow:0 0 12px var(--glow);animation:gl 2.5s infinite alternate}@keyframes gl{to{box-shadow:0 0 22px var(--glow)}}
+.mini .rk{font-family:var(--px);font-size:16px;color:var(--acc)}.mini .nm{display:block;margin:6px 0}.mini .kv{display:flex;justify-content:space-between;font-size:18px}
+#flips .hdr,#flips .row{grid-template-columns:.4fr 2.2fr 1.2fr .6fr 1.6fr 1fr 1fr 1.1fr .8fr .8fr}
+#inv .hdr,#inv .row{grid-template-columns:1.8fr .8fr .5fr 1.1fr .5fr .8fr .8fr .8fr .6fr 1.6fr 2.6fr}
+@media(max-width:900px){.cards,.stats{grid-template-columns:1fr 1fr}}
+
+html,body{overflow-x:hidden;max-width:100%}
+.btn{min-height:48px;min-width:48px}.ctrl input,.ctrl select{min-height:46px}
+@media(max-width:760px){
+.wrap{padding:10px}h1{font-size:18px}.mark{font-size:38px}.sub{font-size:8px}header{padding:12px}.btn{font-size:9px;padding:10px}
+.score{grid-template-columns:1fr 1fr;gap:8px}.led b{font-size:11px}.ticker{font-size:9px}
+.note{font-size:16px}.banner{font-size:20px!important;right:10px!important;top:10px!important}.mvp .fx{right:90px!important;font-size:30px!important}
+.mvp{padding:16px}.mvp .big{font-size:18px;margin-top:22px}.stats{grid-template-columns:1fr 1fr!important}.stats .st:first-child{grid-column:span 2}.st b{font-size:13px}
+.cards{grid-template-columns:1fr!important}.ctrl{flex-direction:column}.ctrl input,.ctrl select{width:100%!important}
+.hdr{display:none!important}
+#flips .row,#inv .row{grid-template-columns:1fr 1fr!important;gap:4px 10px}
+.row>div:nth-child(2){grid-column:span 2}#inv .row>div:first-child{grid-column:span 2}#inv .row>div:last-child,#inv .row>div:nth-last-child(2){grid-column:span 2}
+}
+</style></head><body data-theme=braves><div class=wrap>
+<header><div style="display:flex;align-items:center"><span class=mark id=mark>A</span><div><h1>STUBFLIP</h1><div class=sub id=tagline>MLB THE SHOW 26 · MARKET ARCADE</div></div></div>
+<button class=btn id=tg onclick="toggle()">Theme</button></header>
+<div class=score id=score></div><div style="margin:8px 0"><span class=live id=live><i></i><span id=livetxt>LIVE</span></span></div><div class=ticker><div id=tick></div></div>
+<div class=note><b>SEASON NOTE:</b> The 2026 MLB regular season is over and the postseason runs through about Oct 31. The last roster update was Oct 2. In past years, Live Series updates slow down and then stop after the season (MLB 25 had updates on Oct 3, Oct 10 and Nov 7). Investment upside is limited and speculative now.</div>
+<div id=hero></div><h2>TOP FLIPS</h2><div class=ctrl><input id=fq placeholder="search card..." oninput="draw()"><select id=fr onchange="draw()"><option value="">all rarities</option><option>Red Diamond</option><option>Diamond</option><option>Gold</option><option>Silver</option></select><input id=fmin type=number placeholder="min profit" oninput="draw()" style="width:140px"></div>
+<div id=flips></div>
+<h2>INVESTMENT IDEAS</h2><div id=inv></div>
+<footer>Flips shown only if sales/hr ≥ 10 and ROI ≤ 60% (fillable picks). Max 10 flips, top 5 investments. *Quicksell values are not in the API; they come from the standard OVR table (assumed). Sales/hr comes from the last completed orders on listing.json and can be inflated on thin markets. Wide spreads usually mean low liquidity. Profit = sell × 0.9 − buy.</footer></div>
+<script>
+const LIVEMODE=true;let D=null;const n=x=>typeof x==="number"?x.toLocaleString():x;
+const TH={braves:{m:"A",t:"BRAVES ARCADE · CHOP THE MARKET",b:"▶ TIGERS MODE",bn:"CHOP!",fx:"🪓"},tigers:{m:"D",t:"TIGERS ARCADE · ROAR ON THE MARKET",b:"▶ BRAVES MODE",bn:"ROAR!",fx:""}};
+function setT(t){document.body.dataset.theme=t;localStorage.setItem("stubflipTheme",t);mark.textContent=TH[t].m;tagline.textContent=TH[t].t;tg.textContent=TH[t].b;if(D)hero_()}
+function toggle(){setT(document.body.dataset.theme==="braves"?"tigers":"braves")}
+const S={flips:{k:null,d:-1},inv:{k:null,d:-1}};let PREV={};
+const FC=[["rank","#"],["name","CARD"],["rarity","RARITY"],["ovr","OVR"],["series","SERIES"],["buy","BUY @"],["sell","SELL @"],["profit","PROFIT"],["roi","ROI"],["sales_per_hr","SALES/HR"]];
+const IC=[["name","CARD"],["rarity","RARITY"],["ovr","OVR"],["team","TEAM"],["pos","POS"],["sell","BUY NOW"],["quicksell","QS*"],["qs_gap_pct","%>QS"],["ru_trend","OVR Δ"],["mlb_stat","2026 STATS"],["reason","WHY"]];
+const rc=r=>`<span class="tag r-${r.replace(/ /g,"")}">${r.toUpperCase()}</span>`;
+const fl=(x,k)=>{const p=PREV[x.uuid];if(!p||p[k]===x[k])return"";return x[k]>p[k]?"fup":"fdn"};
+function sorted(a,s){if(!s.k)return a;return [...a].sort((x,y)=>(x[s.k]>y[s.k]?1:x[s.k]<y[s.k]?-1:0)*s.d)}
+function hdr(id,cols){return `<div class=hdr>${cols.map(c=>`<div onclick="srt('${id}','${c[0]}')">${c[1]}${S[id].k===c[0]?(S[id].d<0?" ▼":" ▲"):""}</div>`).join("")}</div>`}
+function srt(id,k){S[id].d=S[id].k===k?-S[id].d:-1;S[id].k=k;draw()}
+function hero_(){const f=D.flips;if(!f.length){hero.innerHTML="<div class=note>No liquid flips pass the filters right now.</div>";return}const x=f[0],t=TH[document.body.dataset.theme];
+ hero.innerHTML=`<div class=mvp><span class=badge>★ MVP · BEST FLIP</span><span class=fx>${t.fx}</span><span class=banner>${t.bn}</span><div class=big>${x.name}</div><div>${rc(x.rarity)} ${x.ovr} · ${x.series}</div>
+ <div class=stats>${[["BUY ORDER",n(x.buy),"buy"],["SELL AT",n(x.sell),"sell"],["PROFIT","+"+n(x.profit),"profit","pr"],["ROI",x.roi+"%","roi"],["SALES/HR",x.sales_per_hr,"sales_per_hr"]].map(s=>`<div class=st><span>${s[0]}</span><b class="${s[3]||""} ${fl(x,s[2])}">${s[1]}</b></div>`).join("")}</div></div>
+ <div class=cards>${f.slice(1,5).map((x,i)=>`<div class=mini><span class=rk>#${i+2}</span><span class=nm>${x.name}</span>${rc(x.rarity)} ${x.ovr}<div class=kv><span>Buy</span><b class="${fl(x,"buy")}">${n(x.buy)}</b></div><div class=kv><span>Sell</span><b class="${fl(x,"sell")}">${n(x.sell)}</b></div><div class=kv><span>Profit</span><b class="pr ${fl(x,"profit")}">+${n(x.profit)}</b></div><div class=kv><span>ROI</span><b>${x.roi}%</b></div><div class=kv><span>Sales/hr</span><b>${x.sales_per_hr}</b></div></div>`).join("")}</div>`}
+function draw(){const q=fq.value.toLowerCase(),r=fr.value,mn=+fmin.value||0;D.flips.forEach((x,i)=>x.rank=i+1);
+ const f=sorted(D.flips.filter(x=>x.name.toLowerCase().includes(q)&&(!r||x.rarity===r)&&x.profit>=mn),S.flips);
+ flips.innerHTML=hdr("flips",FC)+f.map(x=>`<div class=row><div class=rk>${x.rank}</div><div class=nm>${x.name}</div><div>${rc(x.rarity)}</div><div>${x.ovr}</div><div>${x.series}</div><div class="${fl(x,"buy")}">${n(x.buy)}</div><div class="${fl(x,"sell")}">${n(x.sell)}</div><div class="pr ${fl(x,"profit")}">+${n(x.profit)}</div><div class="roi ${x.roi>=25?"hi":x.roi>=8?"md":"lo"}">${x.roi}%</div><div>${x.sales_per_hr}</div></div>`).join("");
+ const i=sorted(D.inv.filter(x=>x.name.toLowerCase().includes(q)&&(!r||x.rarity===r)),S.inv);
+ inv.innerHTML=hdr("inv",IC)+i.map(x=>`<div class=row><div class=nm>${x.name}</div><div>${rc(x.rarity)}</div><div>${x.ovr}</div><div>${x.team}</div><div>${x.pos}</div><div>${n(x.sell)}</div><div>${n(x.quicksell)}</div><div class="${x.qs_gap_pct<=25?"up":""}">${x.qs_gap_pct}%</div><div class="${x.ru_trend>0?"up":x.ru_trend<0?"dn":""}">${x.ru_trend>0?"+":""}${x.ru_trend}</div><div>${x.mlb_stat}</div><div class=why>${x.reason}</div></div>`).join("")}
+function render(){hero_();draw();const b=D.flips[0]||{};
+ score.innerHTML=[["FULL SCAN",D.scan_ts+" ET"],["SOURCE","mlb26 API"],["LIQUID FLIPS",D.flips.length],["TOP PROFIT",b.name?"+"+n(b.profit):"-"]].map(x=>`<div class=led><span>${x[0]}</span><b>${x[1]}</b></div>`).join("");
+ tick.textContent=D.flips.map(x=>`★ ${x.name.toUpperCase()} BUY ${n(x.buy)} → SELL ${n(x.sell)} = +${n(x.profit)} (${x.roi}%)`).join("   ")+"   ◆ "+D.run[2]+" ◆ live: "+D.fast_status;
+ PREV={};D.flips.forEach(x=>PREV[x.uuid]={...x})}
+let last=Date.now();
+async function poll(){try{const r=await fetch("/api/data");const nd=await r.json();D=nd;hero_();draw();const keep=PREV;render();last=Date.now();live.classList.remove("off")}catch(e){live.classList.add("off");livetxt.textContent="OFFLINE (retrying)"}}
+// render with flashes: compute against PREV before overwriting
+render=(function(orig){return function(){hero_();draw();orig2()}})();function orig2(){const b=D.flips[0]||{};score.innerHTML=[["FULL SCAN",D.scan_ts+" ET"],["SOURCE","mlb26 API"],["LIQUID FLIPS",D.flips.length],["TOP PROFIT",b.name?"+"+n(b.profit):"-"]].map(x=>`<div class=led><span>${x[0]}</span><b>${x[1]}</b></div>`).join("");tick.textContent=D.flips.map(x=>`★ ${x.name.toUpperCase()} BUY ${n(x.buy)} → SELL ${n(x.sell)} = +${n(x.profit)} (${x.roi}%)`).join("   ")+"   ◆ "+D.run[2]+" ◆ live: "+D.fast_status;PREV={};D.flips.forEach(x=>PREV[x.uuid]={...x})}
+poll=async function(){try{const r=await fetch("/api/data",{cache:"no-store"});D=await r.json();render();last=Date.now();live.classList.remove("off")}catch(e){live.classList.add("off")}};
+poll=async function(){try{const r=await fetch("data.json?t="+Date.now(),{cache:"no-store"});const nd=await r.json();const changed=!D||nd.generated_utc!==D.generated_utc;D=nd;if(changed)render();live.classList.remove("off")}catch(e){live.classList.add("off");livetxt.textContent="OFFLINE · retrying"}};
+setInterval(()=>{if(!D)return;const m=Math.floor((Date.now()-Date.parse(D.generated_utc))/60000);if(!live.classList.contains("off"))livetxt.textContent=`LIVE · data updated ${m<1?"<1":m}m ago · checks every 60s`},1000);
+const qp=new URLSearchParams(location.search).get("theme");setT(TH[qp]?qp:(TH[localStorage.getItem("stubflipTheme")]?localStorage.getItem("stubflipTheme"):"braves"));
+poll();setInterval(poll,60000);
+if("serviceWorker"in navigator){}
+</script></body></html>
