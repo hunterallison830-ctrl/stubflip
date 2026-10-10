@@ -34,5 +34,5 @@ def main():
     inv.sort(key=lambda x:-x["score"])
     ts=now.strftime("%Y-%m-%d %H:%M:%S")
     out=dict(generated_utc=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),scan_ts=ts,run=[ts,"ok",f"{len(L)} listings, {len(fl)} liquid flips, statsapi players {len(st)}"],flips=fl[:10],inv=inv[:5])
-    os.makedirs("site",exist_ok=True); json.dump(out,open("site/data.json","w")); print(out["run"])
+    d=os.environ.get("OUT","site"); os.makedirs(d,exist_ok=True); json.dump(out,open(f"{d}/data.json","w")); print(out["run"])
 if __name__=="__main__": main()

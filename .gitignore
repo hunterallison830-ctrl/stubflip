@@ -5,3 +5,4 @@ site/
 __pycache__/
 shot_*.png
 .env
+publish.log
